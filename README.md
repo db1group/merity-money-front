@@ -1,10 +1,23 @@
 # db1-merit-money-front
 
-
 # Technologies
 
 * NPM 6.7.0+ -> Used to build the front end components and control dependencies
 * Vue.js ^2.6.10 -> See [Reference](https://cli.vuejs.org/).
+
+## NPM Versions marker reminder
+
+[Reference](https://docs.npmjs.com/misc/semver)
+
+* ~version “Approximately equivalent to version”, will update you to all future patch versions without incrementing the minor version.
+* ^version “Compatible with version”, will update you to all future minor/patch versions, without incrementing the major version.
+
+# Definitions
+
+## Version
+
+We're using [Semantic Versioning](https://semver.org/) model
+
 
 # Branchs Workflow
 
