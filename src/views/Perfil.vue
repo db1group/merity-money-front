@@ -60,10 +60,10 @@
           <v-card-text>
             <v-tabs color="claro" class="mb-4" v-if="!isNonEdit">
               <v-tab @click="isPublico = true">
-                <v-icon>mdi-earth</v-icon>&nbsp Perfil
+                <v-icon>mdi-earth</v-icon>&nbsp; Perfil
               </v-tab>
               <v-tab @click="isPublico = false">
-                <v-icon>mdi-shield-lock</v-icon>&nbsp Trocar senha
+                <v-icon>mdi-shield-lock</v-icon>&nbsp; Trocar senha
               </v-tab>
             </v-tabs>
             <div v-if="isPublico">
@@ -143,63 +143,63 @@
 </template>
 
 <script>
-import { api, app } from "@/services.js";
-import HeaderGlobal from "@/components/HeaderGlobal";
-import FooterGlobal from "@/components/FooterGlobal";
-import DashPerfil from "@/components/DashPerfil";
-import TrocarSenha from "@/components/TrocarSenha";
+import { api, app } from '@/services.js';
+import HeaderGlobal from '@/components/HeaderGlobal';
+import FooterGlobal from '@/components/FooterGlobal';
+import DashPerfil from '@/components/DashPerfil';
+import TrocarSenha from '@/components/TrocarSenha';
 
 export default {
   components: {
     HeaderGlobal,
     FooterGlobal,
     DashPerfil,
-    TrocarSenha
+    TrocarSenha,
   },
-  name: "Perfil",
+  name: 'Perfil',
   data() {
     return {
       pessoa: {
-        equipe: {}
+        equipe: {},
       },
       transacoesDetalhes: {
         envios: 0,
         recebidos: 0,
         total: 0,
-        ultimoEnvio: "",
-        ultimoRecebido: ""
+        ultimoEnvio: '',
+        ultimoRecebido: '',
       },
       picture: null,
       pessoaTmp: {
-        nome: "",
-        email: "",
-        linkedin: ""
+        nome: '',
+        email: '',
+        linkedin: '',
       },
       valid: true,
-      btnEdit: "Editar Perfil",
-      btnSave: "Salvar Alterações",
+      btnEdit: 'Editar Perfil',
+      btnSave: 'Salvar Alterações',
       isNonEdit: true,
       isPublico: true,
-      editable: false
+      editable: false,
     };
   },
   computed: {
     getPathFoto() {
       return {
-        background: `url('${this.pessoa.equipe.pathFoto}') center center/cover no-repeat`
+        background: `url('${this.pessoa.equipe.pathFoto}') center center/cover no-repeat`,
       };
-    }
+    },
   },
   mounted() {
     const { id } = this.$route.params;
     if (id) {
       this.puxarPessoa(id);
       this.buscarDetalhes(id);
-      this.$store.state.usuario.id == id
+      this.$store.state.usuario.id === id
         ? (this.editable = true)
         : (this.editable = false);
     } else {
-      this.$store.dispatch("getUsuario").then(r => {
+      this.$store.dispatch('getUsuario').then((r) => {
         this.pessoa = this.$store.state.usuario;
         this.buscarDetalhes(this.pessoa.id);
         this.editable = true;
@@ -209,22 +209,22 @@ export default {
   },
   methods: {
     puxarPessoa(id) {
-      app.findPessoaById(id).then(r => {
+      app.findPessoaById(id).then((r) => {
         this.pessoa = r.data;
       });
     },
     buscarDetalhes(id) {
-      app.buscarDetalhesTransacoes(id).then(r => {
+      app.buscarDetalhesTransacoes(id).then((r) => {
         this.transacoesDetalhes = r.data;
       });
     },
     onResize() {
       if (window.innerWidth <= 522) {
-        this.btnEdit = "Editar";
-        this.btnSave = "Salvar";
+        this.btnEdit = 'Editar';
+        this.btnSave = 'Salvar';
       } else {
-        this.btnEdit = "Editar Perfil";
-        this.btnSave = "Salvar Alterações";
+        this.btnEdit = 'Editar Perfil';
+        this.btnSave = 'Salvar Alterações';
       }
     },
     editarPerfil() {
@@ -237,16 +237,16 @@ export default {
       this.isPublico = true;
       app
         .atualizarCadastro(this.pessoa)
-        .then(response => {})
-        .catch(response => {
+        .then((response) => {})
+        .catch((response) => {
           this.pessoa.nome = this.pessoaTmp.nome;
           this.pessoa.email = this.pessoaTmp.email;
           this.pessoa.linkedin = this.pessoaTmp.linkedin;
         });
       if (this.picture != null) {
         const fd = new FormData();
-        fd.append("file", this.picture, this.picture.name);
-        app.trocarFoto(fd).then(r => {});
+        fd.append('file', this.picture, this.picture.name);
+        app.trocarFoto(fd).then((r) => {});
       }
     },
     onPickFile(file) {
@@ -255,13 +255,13 @@ export default {
     onFilePicked(event) {
       const file = event.target.files[0];
       const fileReader = new FileReader();
-      fileReader.addEventListener("load", () => {
+      fileReader.addEventListener('load', () => {
         this.pessoa.pathFoto = fileReader.result;
       });
       fileReader.readAsDataURL(file);
       this.picture = file;
-    }
-  }
+    },
+  },
 };
 </script>
 

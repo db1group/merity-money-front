@@ -14,10 +14,39 @@
 
 # Definitions
 
+## Idioms 
+
+English (en-US)
+Portuguese (pt-BR)
+
+Allowed 
+* Code: en-US
+* Business Documentations: pt-BR, en-US
+* Technical Documentations: en-US
+* Issues: en-US, pt-BR
+* Commits: en-US, pt-BR
+* Application language: en-US, pt-BR
+
+Defaults
+* Code: en-US
+* Business Documentations: pt-BR
+* Technical Documentations: en-US
+* Issues: pt-BR
+* Commits: en-US
+* Application language: pt-BR
+
 ## Version
 
 We're using [Semantic Versioning](https://semver.org/) model
 
+## Official and Default IDE
+
+JetBrain IDEs 
+* https://www.jetbrains.com/webstorm
+* https://www.jetbrains.com/idea/
+
+Visual Studio Code
+* https://code.visualstudio.com/
 
 # Branchs Workflow
 

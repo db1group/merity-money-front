@@ -25,16 +25,16 @@
 </template>
 
 <script>
-import { log } from "util";
-import moment from "moment";
+import { log } from 'util';
+import moment from 'moment';
 
 export default {
-  name: "DashPerfil",
+  name: 'DashPerfil',
   props: {
     id: 0,
     valor: 0,
-    titulo: "",
-    ultimaTransacao: "",
+    titulo: '',
+    ultimaTransacao: '',
     totalTransacoes: 0
   },
   filters: {
@@ -42,14 +42,14 @@ export default {
       return `M$ ${valor}`;
     },
     timestampConvert(timestamp) {
-      if (!timestamp) return "não existe";
+      if (!timestamp) return 'não existe';
 
-      moment.locale("pt-BR");
+      moment.locale('pt-BR');
       return moment(timestamp)
-        .startOf("hour")
+        .startOf('hour')
         .fromNow();
-    }
-  }
+    },
+  },
 };
 </script>
 

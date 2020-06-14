@@ -5,7 +5,7 @@
         <v-flex xs6>
           <v-card :loading="loading" class="mx-auto my-12">
             <v-card-title>
-              <v-icon>mdi-lock-reset</v-icon>&nbsp Nova senha
+              <v-icon>mdi-lock-reset</v-icon>&nbsp; Nova senha
             </v-card-title>
 
             <v-divider class="mx-4"></v-divider>
@@ -91,7 +91,7 @@ export default {
     validate() {
       if (
         this.$refs.form.validate()
-        && this.novaSenha.senha == this.novaSenha.confirmaSenha
+        && this.novaSenha.senha === this.novaSenha.confirmaSenha
       ) {
         this.loading = true;
         app
@@ -110,8 +110,8 @@ export default {
   },
   computed: {
     confirmacao() {
-      if (this.novaSenha.senha == '') return true;
-      return this.novaSenha.senha != this.novaSenha.confirmaSenha;
+      if (this.novaSenha.senha === '') return true;
+      return this.novaSenha.senha !== this.novaSenha.confirmaSenha;
     },
   },
 };

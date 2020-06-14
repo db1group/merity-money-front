@@ -1,10 +1,10 @@
 import Vue from 'vue';
 import money from 'v-money';
+import store from '@/store';
+import Loading from '@/components/Loading';
 import App from './App.vue';
 import router from './router';
-import store from '@/store';
 import vuetify from './plugins/vuetify';
-import Loading from '@/components/Loading';
 
 Vue.use(money, { precision: 4 });
 Vue.config.productionTip = false;

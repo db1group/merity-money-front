@@ -13,8 +13,8 @@
 <script>
 export default {
   props: {
-    icone: "",
-    titulo: ""
-  }
+    icone: '',
+    titulo: '',
+  },
 };
 </script>

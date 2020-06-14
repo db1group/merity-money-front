@@ -10,7 +10,7 @@
         <v-flex xs6>
           <v-card :loading="loading" class="mx-auto my-12">
             <v-card-title>
-              <v-icon>mdi-login</v-icon>&nbsp Login
+              <v-icon>mdi-login</v-icon>&nbsp; Login
             </v-card-title>
 
             <v-divider class="mx-4"></v-divider>

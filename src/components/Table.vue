@@ -63,33 +63,33 @@
 </template>
 
 <script>
-import { app } from "@/services.js";
+import { app } from '@/services.js';
 
 export default {
   data() {
     return {
       headers: [
-        { text: "", value: "foto" },
+        { text: '', value: 'foto' },
         {
-          text: "Colaborador",
-          align: "left",
+          text: 'Colaborador',
+          align: 'left',
           sortable: false,
-          value: "nome"
+          value: 'nome',
         },
-        { text: "Email", value: "email" },
-        { text: "Equipe", value: "equipe.nome" },
-        { text: "Ações", value: "action" }
+        { text: 'Email', value: 'email' },
+        { text: 'Equipe', value: 'equipe.nome' },
+        { text: 'Ações', value: 'action' },
       ],
       pessoas: [],
       pessoa: {},
       equipes: [],
       equipe: 0,
-      keyword: "",
+      keyword: '',
       autoUpdate: true,
       isUpdating: false,
       page: 1,
       size: 5,
-      totalElements: 10
+      totalElements: 10,
     };
   },
   mounted() {
@@ -103,9 +103,9 @@ export default {
           this.keyword,
           this.equipe,
           this.getPage(),
-          this.size
+          this.size,
         )
-        .then(r => {
+        .then((r) => {
           this.setColaboradores(r.data);
         });
     },
@@ -119,23 +119,23 @@ export default {
     buscarPessoasPorEquipe() {
       app
         .findPessoasByEquipe(this.equipe, this.getPage(), this.size)
-        .then(r => {
+        .then((r) => {
           this.setColaboradores(r.data);
         });
     },
     buscarTodasPessoas() {
-      app.findAllPessoas(this.getPage(), this.size).then(r => {
+      app.findAllPessoas(this.getPage(), this.size).then((r) => {
         this.setColaboradores(r.data);
       });
     },
     buscarEquipes() {
-      app.findAllEquipes().then(r => {
+      app.findAllEquipes().then((r) => {
         this.equipes = r.data.filter(
-          equipe => equipe.numeroDeColaboradores > 0
+          equipe => equipe.numeroDeColaboradores > 0,
         );
       });
     },
-    atualizarTabela(id) {
+    atualizarTabela() {
       this.page = 1;
       this.getSearch();
     },
@@ -152,7 +152,7 @@ export default {
       } else {
         this.buscarPessoas();
       }
-    }
+    },
   },
   watch: {
     page() {
@@ -163,8 +163,8 @@ export default {
     },
     keyword() {
       this.getSearch();
-    }
-  }
+    },
+  },
 };
 </script>
 
