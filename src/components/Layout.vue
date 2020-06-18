@@ -18,26 +18,26 @@
 </template>
 
 <script>
-import HeaderGlobal from "./HeaderGlobal";
-import FooterGlobal from "./FooterGlobal";
-import Loading from "./Loading";
+import HeaderGlobal from './HeaderGlobal';
+import FooterGlobal from './FooterGlobal';
+import Loading from './Loading';
 
 export default {
-  name: "Layout",
+  name: 'Layout',
   components: {
     HeaderGlobal,
     FooterGlobal,
-    Loading
+    Loading,
   },
   data() {
     return {
-      loading: true
+      loading: true,
     };
   },
   methods: {},
   mounted() {
     this.loading = false;
-  }
+  },
 };
 </script>
 

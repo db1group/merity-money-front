@@ -8,7 +8,7 @@
               <v-icon>mdi-arrow-left</v-icon>
             </v-btn>
             <v-card-title>
-              <v-icon>mdi-lock-question</v-icon>&nbsp Recuperar senha
+              <v-icon>mdi-lock-question</v-icon>&nbsp; Recuperar senha
             </v-card-title>
 
             <v-divider class="mx-4"></v-divider>

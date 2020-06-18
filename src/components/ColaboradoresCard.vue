@@ -35,10 +35,10 @@
           <v-card-actions class="justify-space-between">
             <div>
               <v-btn text :to="{name: 'Perfil', params: {id: colaborador.id}}">
-                <v-icon>mdi-account</v-icon>&nbsp Perfil
+                <v-icon>mdi-account</v-icon>&nbsp; Perfil
               </v-btn>
               <v-btn text :to="{name: 'Enviar', params: {id: colaborador.id}}">
-                <v-icon>mdi-send-circle-outline</v-icon>&nbsp Enviar
+                <v-icon>mdi-send-circle-outline</v-icon>&nbsp; Enviar
               </v-btn>
             </div>
             <div>
@@ -66,15 +66,15 @@
 </template>
 
 <script>
-import { app } from "@/services.js";
+import { app } from '@/services.js';
 
 export default {
-  name: "ColaboradoresCard",
+  name: 'ColaboradoresCard',
   props: {
     equipeId: {
       type: Number,
-      default: 0
-    }
+      default: 0,
+    },
   },
   data() {
     return {
@@ -83,7 +83,7 @@ export default {
       page: 0,
       maxPage: 0,
       previousDisable: true,
-      nextDisable: false
+      nextDisable: false,
     };
   },
   mounted() {
@@ -92,10 +92,10 @@ export default {
   methods: {
     getColaboradores() {
       if (!this.equipeId) return;
-      app.findPessoasByEquipe(this.equipeId, this.page, this.size).then(r => {
+      app.findPessoasByEquipe(this.equipeId, this.page, this.size).then((r) => {
         this.colaboradores = r.data.content.sort((a, b) => b.saldo - a.saldo);
         this.maxPage = r.data.totalPages - 1;
-        if (this.maxPage == 0 || this.colaboradores.length == 0) {
+        if (this.maxPage === 0 || this.colaboradores.length === 0) {
           this.nextDisable = true;
         }
         console.log(this.colaboradores);
@@ -103,16 +103,16 @@ export default {
     },
     nextPage() {
       if (this.page < this.maxPage) {
-        this.page++;
+        this.nextPage();
         this.getColaboradores();
       }
     },
     previousPage() {
       if (this.page > 0) {
-        this.page--;
+        this.previousPage();
         this.getColaboradores();
       }
-    }
+    },
   },
   watch: {
     equipeId() {
@@ -129,8 +129,8 @@ export default {
       } else {
         this.nextDisable = true;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

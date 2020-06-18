@@ -22,13 +22,13 @@
               <v-avatar size="38px">
                 <img :src="item.destinatario.pathFoto" :alt="item.destinatario.nome" pa-2 />
               </v-avatar>
-              &nbsp {{ item.destinatario.nome }}
+              &nbsp; {{ item.destinatario.nome }}
             </td>
             <td v-else>
               <v-avatar size="38px">
                 <img :src="item.remetente.pathFoto" :alt="item.remetente.nome" pa-2 />
               </v-avatar>
-              &nbsp {{ item.remetente.nome }}
+              &nbsp; {{ item.remetente.nome }}
             </td>
             <td>
               <v-chip color="escuro">{{ item.valor | meritMoney}}</v-chip>
@@ -43,13 +43,13 @@
 </template>
 
 <script>
-import moment from "moment";
-import { app } from "@/services.js";
+import moment from 'moment';
+import { app } from '@/services.js';
 
 export default {
-  name: "TabelaTransacoes",
+  name: 'TabelaTransacoes',
   props: {
-    isEnvios: true
+    isEnvios: true,
   },
   data() {
     return {
@@ -57,23 +57,23 @@ export default {
       transacoes: [],
       headers: [
         {
-          text: "Destinatário",
-          align: "left",
-          value: "destinatario.nome"
+          text: 'Destinatário',
+          align: 'left',
+          value: 'destinatario.nome',
         },
-        { text: "Valor", value: "valor" },
-        { text: "Mensagem", value: "mensagem" },
-        { text: "Data", value: "dateTime" }
+        { text: 'Valor', value: 'valor' },
+        { text: 'Mensagem', value: 'mensagem' },
+        { text: 'Data', value: 'dateTime' },
       ],
       idUsuario: 0,
       isDesc: true,
       size: 5,
       page: 1,
-      totalElements: 1
+      totalElements: 1,
     };
   },
   mounted() {
-    this.$store.dispatch("getUsuario").then(() => {
+    this.$store.dispatch('getUsuario').then(() => {
       this.idUsuario = this.$store.state.usuario.id;
       this.getTransacoes();
     });
@@ -83,7 +83,7 @@ export default {
       this.loading = true;
       return app
         .buscarEnvios(this.idUsuario, this.page - 1, this.size)
-        .then(r => {
+        .then((r) => {
           this.setItems(r.data);
         })
         .catch(() => (this.loading = false));
@@ -92,7 +92,7 @@ export default {
       this.loading = true;
       return app
         .buscarRecebidos(this.idUsuario, this.page - 1, this.size)
-        .then(r => {
+        .then((r) => {
           this.setItems(r.data);
         })
         .catch(() => (this.loading = false));
@@ -106,14 +106,14 @@ export default {
       if (this.isEnvios) {
         this.buscarEnvios();
       } else {
-        this.headers[0].text = "Remetente";
-        this.headers[0].value = "remetente.nome";
+        this.headers[0].text = 'Remetente';
+        this.headers[0].value = 'remetente.nome';
         this.buscarRecebidos();
       }
     },
     customSort(items, index, isDesc) {
       items.sort((a, b) => {
-        if (index === "dataTime") {
+        if (index === 'dataTime') {
           if (!isDesc) {
             return dateHelp.compare(a.dataTime, b.dataTime);
           }
@@ -125,18 +125,18 @@ export default {
         return b[index] < a[index] ? -1 : 1;
       });
       return items;
-    }
+    },
   },
   filters: {
     meritMoney(valor) {
       return `M$ ${valor}`;
     },
     timestampConvert(timestamp) {
-      if (!timestamp) return "não existe";
+      if (!timestamp) return 'não existe';
 
-      moment.locale("pt-BR");
+      moment.locale('pt-BR');
       return moment(timestamp).fromNow();
-    }
+    },
   },
   watch: {
     page() {
@@ -144,8 +144,8 @@ export default {
     },
     size() {
       this.getTransacoes();
-    }
-  }
+    },
+  },
 };
 </script>
 

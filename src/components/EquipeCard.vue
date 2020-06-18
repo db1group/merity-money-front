@@ -22,20 +22,20 @@
 
 <script>
 export default {
-  name: "EquipeCard",
+  name: 'EquipeCard',
   props: {
     equipe: {
       type: Object,
-      default: {}
-    }
+      default: {},
+    },
   },
   methods: {
     showSortDescription() {
       return this.equipe.descricao
-        ? this.equipe.descricao.substring(0, 45) + "..."
-        : "";
-    }
-  }
+        ? `${this.equipe.descricao.substring(0, 45)}...`
+        : '';
+    },
+  },
 };
 </script>
 

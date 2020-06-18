@@ -1,42 +1,40 @@
-import axios from "axios";
-import store from "@/store.js";
-import router from "@/router.js";
+import axios from 'axios';
+import store from '@/store.js';
+import router from '@/router.js';
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:8082"
+  baseURL: 'http://localhost:8082',
 });
 
 axiosInstance.interceptors.request.use(
-  config => {
+  (config) => {
     const { token } = window.localStorage;
     if (token) {
       config.headers.Authorization = token;
     }
     return config;
   },
-  error => Promise.reject(error)
+  error => Promise.reject(error),
 );
 
 axiosInstance.interceptors.response.use(
-  config => {
-    return config;
-  },
-  error => {
+  config => config,
+  (error) => {
     const {
       config,
-      response: { status }
+      response: { status },
     } = error;
     const originalRequest = config;
 
     if (status === 403) {
       control();
     }
-  }
+  },
 );
 
 function control() {
-  store.dispatch("deslogarUsuario").then(() => {
-    router.push({ name: "Login" });
+  store.dispatch('deslogarUsuario').then(() => {
+    router.push({ name: 'Login' });
   });
 }
 
@@ -49,7 +47,7 @@ export const api = {
   },
   upload(endpoint, body) {
     return axiosInstance.post(endpoint, body, {
-      headers: { "Content-Type": "multipart/form-data" }
+      headers: { 'Content-Type': 'multipart/form-data' },
     });
   },
   put(endpoint, body) {
@@ -57,7 +55,7 @@ export const api = {
   },
   delete(endpoint, body) {
     return axiosInstance.delete(endpoint, body);
-  }
+  },
 };
 
 export const app = {
@@ -73,20 +71,20 @@ export const app = {
   },
   findPessoaByEmail(email) {
     const emailDto = {
-      email
+      email,
     };
-    return api.post("/pessoas/buscar-por-email/", emailDto);
+    return api.post('/pessoas/buscar-por-email/', emailDto);
   },
   findPessoaByKeyword(keyword) {
     return api.get(`/pessoas/busca/${keyword}`);
   },
   findPessoaByPageableKeyword(keyword, group, page, size) {
-    group = group != undefined && group > 0 ? group : "";
+    group = group != undefined && group > 0 ? group : '';
     return api.get(`/pessoas/busca/${keyword}/${page}/${size}?equipe=${group}`);
   },
   /* EQUIPES */
   findAllEquipes() {
-    return api.get("/equipes");
+    return api.get('/equipes');
   },
   findEquipesByKeyword(keyword, page, size) {
     return api.get(`/equipes/buscar/${keyword}/${page}/${size}`);
@@ -99,7 +97,7 @@ export const app = {
   },
   /* TRANSAÇÕES */
   efetuarTransacao(transacao) {
-    return api.post("/transacoes/nova-transacao", transacao);
+    return api.post('/transacoes/nova-transacao', transacao);
   },
   buscarDetalhesTransacoes(id) {
     return api.get(`/transacoes/infos/${id}`);
@@ -112,20 +110,20 @@ export const app = {
   },
   /* USUÁRIO */
   atualizarCadastro(pessoa) {
-    return api.put("/pessoas/alterar", pessoa);
+    return api.put('/pessoas/alterar', pessoa);
   },
   login(login) {
     const credentials = {
       email: login.email,
-      senha: login.password
+      senha: login.password,
     };
-    return api.post("/login", credentials);
+    return api.post('/login', credentials);
   },
   getUsuario() {
-    return api.get("/auth/get-usuario").catch(control);
+    return api.get('/auth/get-usuario').catch(control);
   },
   validateToken() {
-    return api.get("/auth/is-valid-token").catch(control);
+    return api.get('/auth/is-valid-token').catch(control);
   },
   getEmailByHash(hash) {
     return api.get(`/auth/find-email-by-hash/${hash}`);
@@ -133,21 +131,21 @@ export const app = {
   changePasswordByHash(hash, senha) {
     const trocaSenha = {
       hash,
-      newPassword: senha
+      newPassword: senha,
     };
-    return api.post("/auth/change-password-by-hash", trocaSenha);
+    return api.post('/auth/change-password-by-hash', trocaSenha);
   },
   trocarSenha(senhaAntiga, novaSenha) {
     const trocaSenha = {
       senhaAntiga,
-      novaSenha
+      novaSenha,
     };
-    return api.post("/auth/change-password-by-oldpassword", trocaSenha);
+    return api.post('/auth/change-password-by-oldpassword', trocaSenha);
   },
   trocarFoto(file) {
-    return api.post("/pessoas/trocar-foto", file);
+    return api.post('/pessoas/trocar-foto', file);
   },
   forgotPassword(email) {
-    return api.post("/auth/forgot/", email);
-  }
+    return api.post('/auth/forgot/', email);
+  },
 };

@@ -16,28 +16,28 @@
 </template>
 
 <script>
-import { app } from "@/services.js";
-import HeaderGlobal from "@/components/HeaderGlobal";
-import FooterGlobal from "@/components/FooterGlobal";
-import PageTitle from "@/components/PageTitle";
-import ColaboradoresCard from "@/components/ColaboradoresCard";
+import { app } from '@/services.js';
+import HeaderGlobal from '@/components/HeaderGlobal';
+import FooterGlobal from '@/components/FooterGlobal';
+import PageTitle from '@/components/PageTitle';
+import ColaboradoresCard from '@/components/ColaboradoresCard';
 
 export default {
   components: {
     HeaderGlobal,
     FooterGlobal,
     PageTitle,
-    ColaboradoresCard
+    ColaboradoresCard,
   },
-  name: "Perfil",
+  name: 'Perfil',
   data() {
     return {
-      equipe: {}
+      equipe: {},
     };
   },
   mounted() {
     const { id } = this.$route.params;
-    app.findEquipeById(id).then(r => {
+    app.findEquipeById(id).then((r) => {
       this.equipe = r.data;
     });
   },
@@ -48,10 +48,10 @@ export default {
     },
     getPathFoto() {
       return {
-        background: `url('${this.equipe.pathFoto}') center center/cover no-repeat !important`
+        background: `url('${this.equipe.pathFoto}') center center/cover no-repeat !important`,
       };
-    }
-  }
+    },
+  },
 };
 </script>
 

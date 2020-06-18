@@ -120,70 +120,65 @@
 </template>
 
 <script>
-import { api, app } from "@/services.js";
-import { VMoney } from "v-money";
-import Modal from "@/components/Modal";
-import PageTitle from "@/components/PageTitle";
+import { api, app } from '@/services.js';
+import { VMoney } from 'v-money';
+import Modal from '@/components/Modal';
+import PageTitle from '@/components/PageTitle';
 
 export default {
   components: {
     Modal,
-    PageTitle
+    PageTitle,
   },
   data() {
     return {
       loading: true,
       transacaoOk: false,
       transacaoFail: false,
-      mensagemDeErro: "",
-      value: "",
-      procurarPessoa: "",
+      mensagemDeErro: '',
+      value: '',
+      procurarPessoa: '',
       confirmacao: false,
       money: {
-        decimal: ",",
-        thousands: ".",
-        prefix: "M$ ",
-        suffix: " ",
+        decimal: ',',
+        thousands: '.',
+        prefix: 'M$ ',
+        suffix: ' ',
         precision: 2,
-        masked: false
+        masked: false,
       },
       pessoas: [],
       transacao: {
         remetente: {},
         destinatario: {},
-        mensagem: "",
-        valor: 0
+        mensagem: '',
+        valor: 0,
       },
-      pessoaRules: [v => !!v || "Selecione o destinatário"],
+      pessoaRules: [v => !!v || 'Selecione o destinatário'],
       valueRules: [
-        v => {
-          return this.toFloat() > 0 || "Coloque um valor válido";
-        },
-        v => {
-          return (
-            this.toFloat() <= this.transacao.remetente.saldo ||
-            "Saldo insuficiente"
-          );
-        }
-      ]
+        v => this.toFloat() > 0 || 'Coloque um valor válido',
+        v => (
+          this.toFloat() <= this.transacao.remetente.saldo
+            || 'Saldo insuficiente'
+        ),
+      ],
     };
   },
   mounted() {
     this.$store
-      .dispatch("getUsuario")
-      .then(r => {
+      .dispatch('getUsuario')
+      .then((r) => {
         this.transacao.remetente = this.$store.state.usuario;
-        const id = this.$route.params.id;
-        if (id && id != this.transacao.remetente.id) {
+        const { id } = this.$route.params;
+        if (id && id !== this.transacao.remetente.id) {
           this.findPessoa(id);
         } else if (id) {
-          this.mensagemDeErro =
-            "Você não pode enviar para você mesmo, sinto muito!";
+          this.mensagemDeErro = 'Você não pode enviar para você mesmo, sinto muito!';
           this.transacaoFail = true;
         }
         this.loading = false;
       })
-      .catch(r => {
+      .catch((r) => {
         this.loading = false;
       });
   },
@@ -195,10 +190,8 @@ export default {
       });
     },
     findPessoaByKeyword(val) {
-      app.findPessoaByKeyword(val).then(r => {
-        this.pessoas = r.data.filter(r => {
-          return r.id != this.transacao.remetente.id;
-        });
+      app.findPessoaByKeyword(val).then((r) => {
+        this.pessoas = r.data.filter(r => r.id !== this.transacao.remetente.id);
       });
     },
     cancelar() {
@@ -211,24 +204,24 @@ export default {
       return parseFloat(
         this.value
           .substring(3)
-          .replace(/\./g, "")
-          .replace(",", ".")
+          .replace(/\./g, '')
+          .replace(',', '.'),
       );
     },
     efetuarTransacao() {
       this.loading = true;
       this.confirmacao = false;
-      if (this.transacao.remetente.id != this.transacao.destinatario.id) {
+      if (this.transacao.remetente.id !== this.transacao.destinatario.id) {
         this.transacao.valor = this.toFloat();
         app
           .efetuarTransacao(this.transacao)
-          .then(r => {
+          .then((r) => {
             this.transacaoFail = false;
             this.transacaoOk = true;
 
             this.loading = false;
           })
-          .catch(error => {
+          .catch((error) => {
             this.transacaoOk = false;
             this.transacaoFail = true;
             this.mensagemDeErro = error.response.data.message;
@@ -237,16 +230,15 @@ export default {
       } else {
         this.transacaoOk = false;
         this.transacaoFail = true;
-        this.mensagemDeErro =
-          "Você não pode enviar Merit Money para si mesmo :(";
+        this.mensagemDeErro = 'Você não pode enviar Merit Money para si mesmo :(';
         this.loading = false;
       }
-    }
+    },
   },
   watch: {
     procurarPessoa(val) {
       if (val) this.findPessoaByKeyword(val);
-    }
+    },
   },
   computed: {
     mensagem2() {
@@ -254,11 +246,11 @@ export default {
     },
     validate() {
       return (
-        !this.toFloat() ||
-        !this.transacao.destinatario.nome ||
-        this.toFloat() > this.transacao.remetente.saldo
+        !this.toFloat()
+        || !this.transacao.destinatario.nome
+        || this.toFloat() > this.transacao.remetente.saldo
       );
-    }
-  }
+    },
+  },
 };
 </script>

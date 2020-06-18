@@ -26,22 +26,22 @@
 </template>
 
 <script>
-import PageTitle from "@/components/PageTitle";
-import EquipeCard from "@/components/EquipeCard";
-import { app } from "@/services.js";
+import PageTitle from '@/components/PageTitle';
+import EquipeCard from '@/components/EquipeCard';
+import { app } from '@/services.js';
 
 export default {
   components: {
     PageTitle,
-    EquipeCard
+    EquipeCard,
   },
   data() {
     return {
       equipes: [],
-      keyword: "",
+      keyword: '',
       totalPages: 0,
       page: 1,
-      size: 6
+      size: 6,
     };
   },
   mounted() {
@@ -49,20 +49,20 @@ export default {
   },
   methods: {
     buscarEquipes() {
-      app.findEquipes(this.getPage(), this.size).then(r => {
+      app.findEquipes(this.getPage(), this.size).then((r) => {
         this.salvaEquipes(r.data);
       });
     },
     buscarPorKeyword() {
       app
         .findEquipesByKeyword(this.keyword, this.getPage(), this.size)
-        .then(r => {
+        .then((r) => {
           this.salvaEquipes(r.data);
         });
     },
     salvaEquipes(data) {
       this.equipes = data.content.sort(
-        (a, b) => b.numeroDeColaboradores - a.numeroDeColaboradores
+        (a, b) => b.numeroDeColaboradores - a.numeroDeColaboradores,
       );
       this.totalPages = Math.ceil(data.totalElements / this.size);
     },
@@ -75,7 +75,7 @@ export default {
       } else {
         this.buscarEquipes();
       }
-    }
+    },
   },
   watch: {
     keyword() {
@@ -84,8 +84,8 @@ export default {
     },
     page() {
       this.getEquipes();
-    }
-  }
+    },
+  },
 };
 </script>
 

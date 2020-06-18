@@ -13,16 +13,16 @@
 <script>
 export default {
   props: {
-    mensagem: "",
-    titulo: ""
+    mensagem: '',
+    titulo: '',
   },
   methods: {
     cancelar() {
-      this.$emit("cancelar");
+      this.$emit('cancelar');
     },
     confirmar() {
-      this.$emit("confirmar");
-    }
-  }
+      this.$emit('confirmar');
+    },
+  },
 };
 </script>

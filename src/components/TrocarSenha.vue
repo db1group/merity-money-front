@@ -63,7 +63,7 @@ export default {
     validate() {
       if (
         this.$refs.form.validate()
-        && this.novaSenha.novaSenha == this.novaSenha.confirmaNovaSenha
+        && this.novaSenha.novaSenha === this.novaSenha.confirmaNovaSenha
       ) {
         this.loading = true;
         app
@@ -85,8 +85,8 @@ export default {
   },
   computed: {
     confirmacao() {
-      if (this.novaSenha.novaSenha == '') return true;
-      return this.novaSenha.novaSenha != this.novaSenha.confirmaNovaSenha;
+      if (this.novaSenha.novaSenha === '') return true;
+      return this.novaSenha.novaSenha !== this.novaSenha.confirmaNovaSenha;
     },
   },
 };
