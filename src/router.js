@@ -1,16 +1,16 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import store from '@/store.js';
-import Layout from '@/components/Layout';
-import Login from '@/views/Login';
-import EsqueciMinhaSenha from '@/views/EsqueciMinhaSenha';
-import Home from '@/views/Home';
-import Colaboradores from '@/views/Colaboradores';
-import Perfil from '@/views/Perfil';
-import NovaSenha from '@/views/NovaSenha';
-import Enviar from '@/views/Enviar';
-import Equipes from '@/views/Equipes';
-import Equipe from '@/views/Equipe';
+import Layout from '@/components/Layout.vue';
+import Login from '@/views/Login.vue';
+import EsqueciMinhaSenha from '@/views/EsqueciMinhaSenha.vue';
+import Home from '@/views/Home.vue';
+import Colaboradores from '@/views/Colaboradores.vue';
+import Perfil from '@/views/Perfil.vue';
+import NovaSenha from '@/views/NovaSenha.vue';
+import Enviar from '@/views/Enviar.vue';
+import Equipes from '@/views/Equipes.vue';
+import Equipe from '@/views/Equipe.vue';
 import { app } from './services';
 
 Vue.use(Router);
