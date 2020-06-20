@@ -144,10 +144,10 @@
 
 <script>
 import { api, app } from '@/services.js';
-import HeaderGlobal from '@/components/HeaderGlobal';
-import FooterGlobal from '@/components/FooterGlobal';
-import DashPerfil from '@/components/DashPerfil';
-import TrocarSenha from '@/components/TrocarSenha';
+import HeaderGlobal from '@/components/HeaderGlobal.vue';
+import FooterGlobal from '@/components/FooterGlobal.vue';
+import DashPerfil from '@/components/DashPerfil.vue';
+import TrocarSenha from '@/components/TrocarSenha.vue';
 
 export default {
   components: {
