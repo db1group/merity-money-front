@@ -98,7 +98,44 @@ Do your code and don't finish and merge automatically.
 Use the github Pull Request to the "master" branch.
 
 # Commands
-   
+
+## Docker
+
+### Run in dev mode
+
+First of all it's needed to build locally using #Project setup
+
+    
+### Build 
+
+Ref: https://br.vuejs.org/v2/cookbook/dockerize-vuejs-app.html
+
+Build container image
+
+    docker build -t meritmoneydb1/meritmoneyfront .
+
+Run local
+
+    docker run -it -p 8080:80 --rm --name meritmoneyfront01 meritmoneydb1/meritmoneyfront
+
+### Connect in container with CMD
+
+    docker exec -it <container id> /bin/bash
+
+### Sending projeto build to docker
+
+Login (enter your ID and pass or the project shared id and pass)
+
+    docker login
+    
+Create tag
+
+    docker tag meritmoneydb1/meritmoneyfront meritmoneydb1/meritmoneyfront:latest
+
+Push
+
+    docker push meritmoneydb1/meritmoneyfront:latest
+    
 ## Project setup
 ```
 npm install

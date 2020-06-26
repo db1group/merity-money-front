@@ -2,8 +2,12 @@ import axios from 'axios';
 import store from '@/store.js';
 import router from '@/router.js';
 
+let url = 'http://localhost:8082'; // you must hardcode it somewhere. In production you don't.
+if (process.env.NODE_ENV !== 'development') {
+  url = '/api';
+}
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:8082',
+  baseURL: `${url}/`,
 });
 
 axiosInstance.interceptors.request.use(
