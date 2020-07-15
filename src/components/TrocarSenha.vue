@@ -1,46 +1,47 @@
 <template>
-  <v-form ref="form" v-model="valid" lazy-validation>
+  <v-form lazy-validation ref="form" v-model="valid">
     <v-text-field
-      v-model="novaSenha.senhaAtual"
-      type="password"
       :rules="passwordRules"
+      color="#bb4949"
       label="Senha atual"
       required
-      color="#bb4949"
+      type="password"
+      v-model="novaSenha.senhaAtual"
     ></v-text-field>
     <v-text-field
-      v-model="novaSenha.novaSenha"
-      type="password"
       :rules="newPasswordRules"
-      label="Nova senha"
-      color="#bb4949"
-      required
       @keyup.enter="validate"
+      color="#bb4949"
+      label="Nova senha"
+      required
+      type="password"
+      v-model="novaSenha.novaSenha"
     ></v-text-field>
     <v-text-field
-      v-model="novaSenha.confirmaNovaSenha"
-      type="password"
       :rules="confirmPasswordRules"
-      label="Confirmar nova senha"
-      color="#bb4949"
-      required
       @keyup.enter="validate"
+      color="#bb4949"
+      label="Confirmar nova senha"
+      required
+      type="password"
+      v-model="novaSenha.confirmaNovaSenha"
     ></v-text-field>
 
-    <v-alert :value="alert" :type="typeAlert" transition="scale-transition">{{mensagem}}</v-alert>
+    <v-alert :type="typeAlert" :value="alert" transition="scale-transition">{{ mensagem }}</v-alert>
 
     <v-btn
       :disabled="confirmacao"
       :loading="loading"
-      color="escuro"
-      class="mr-4 mt-3"
       @click="validate"
-    >confirmar</v-btn>
+      class="mr-4 mt-3"
+      color="escuro"
+    >confirmar
+    </v-btn>
   </v-form>
 </template>
 
 <script>
-import { app } from '@/services';
+import {app} from '@/services';
 
 export default {
   name: 'TrocarSenha',

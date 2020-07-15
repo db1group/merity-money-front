@@ -1,10 +1,10 @@
 <template>
   <div>
     <div v-if="loading">
-      <Loading />
+      <Loading/>
     </div>
     <div v-else>
-      <HeaderGlobal />
+      <HeaderGlobal/>
       <v-content class="content">
         <v-container>
           <transition mode="out-in" name="slide-fade">
@@ -12,7 +12,7 @@
           </transition>
         </v-container>
       </v-content>
-      <FooterGlobal />
+      <FooterGlobal/>
     </div>
   </div>
 </template>
@@ -49,11 +49,14 @@ export default {
 .slide-fade-enter-active {
   transition: all 0.1s ease;
 }
+
 .slide-fade-leave-active {
   transition: all 0.4s cubic-bezier(1, 0.5, 0.8, 1);
 }
+
 .slide-fade-enter, .slide-fade-leave-to
-/* .slide-fade-leave-active em versões anteriores a 2.1.8 */ {
+  /* .slide-fade-leave-active em versões anteriores a 2.1.8 */
+{
   transform: translateX(3px);
   opacity: 0;
 }

@@ -11,7 +11,7 @@ import NovaSenha from '@/views/NovaSenha.vue';
 import Enviar from '@/views/Enviar.vue';
 import Equipes from '@/views/Equipes.vue';
 import Equipe from '@/views/Equipe.vue';
-import { app } from './services';
+import {app} from './services';
 
 Vue.use(Router);
 

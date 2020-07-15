@@ -2,13 +2,17 @@ import axios from 'axios';
 import store from '@/store.js';
 import router from '@/router.js';
 
+let url = 'http://localhost:8082'; // you must hardcode it somewhere. In production you don't.
+if (process.env.NODE_ENV !== 'development') {
+  url = '/api';
+}
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:8082',
+  baseURL: `${url}/`,
 });
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const { token } = window.localStorage;
+    const {token} = window.localStorage;
     if (token) {
       config.headers.Authorization = token;
     }
@@ -22,7 +26,7 @@ axiosInstance.interceptors.response.use(
   (error) => {
     const {
       config,
-      response: { status },
+      response: {status},
     } = error;
     const originalRequest = config;
 
@@ -34,7 +38,7 @@ axiosInstance.interceptors.response.use(
 
 function control() {
   store.dispatch('deslogarUsuario').then(() => {
-    router.push({ name: 'Login' });
+    router.push({name: 'Login'});
   });
 }
 
@@ -47,7 +51,7 @@ export const api = {
   },
   upload(endpoint, body) {
     return axiosInstance.post(endpoint, body, {
-      headers: { 'Content-Type': 'multipart/form-data' },
+      headers: {'Content-Type': 'multipart/form-data'},
     });
   },
   put(endpoint, body) {

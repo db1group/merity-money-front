@@ -6,7 +6,7 @@
       elevation="12"
       max-width="120px"
     >
-      <h4>{{valor | meritMoney}}</h4>
+      <h4>{{ valor | meritMoney }}</h4>
     </v-sheet>
 
     <v-card-text class="pt-0">
@@ -15,17 +15,16 @@
       <v-icon class="mr-2" small>mdi-clock</v-icon>
       <span class="caption grey--text font-weight-light">
         <strong>Última transação:</strong>
-        {{ultimaTransacao | timestampConvert}}.
+        {{ ultimaTransacao | timestampConvert }}.
       </span>
-      <br />
+      <br/>
       <v-icon class="mr-2" small>mdi-bank-transfer</v-icon>
-      <span class="caption grey--text font-weight-light">{{totalTransacoes}} transações realizadas.</span>
+      <span class="caption grey--text font-weight-light">{{ totalTransacoes }} transações realizadas.</span>
     </v-card-text>
   </v-card>
 </template>
 
 <script>
-import { log } from 'util';
 import moment from 'moment';
 
 export default {
@@ -58,6 +57,7 @@ export default {
   top: -20px;
   position: relative;
 }
+
 .margin-top {
   margin-top: 28px;
 }

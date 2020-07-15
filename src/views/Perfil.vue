@@ -1,20 +1,20 @@
 <template>
   <div>
-    <HeaderGlobal />
+    <HeaderGlobal/>
     <v-content class="content" v-resize="onResize">
       <v-container grid-list-xs>
         <v-card class="my-12 mx-auto">
-          <v-row class="cover pa-0 ma-0" :style="getPathFoto">
+          <v-row :style="getPathFoto" class="cover pa-0 ma-0">
             <v-col cols="3">
-              <v-avatar size="200" class="v-sheet--offset mx-auto ml-4 avatar" elevation="12">
+              <v-avatar class="v-sheet--offset mx-auto ml-4 avatar" elevation="12" size="200">
                 <v-hover v-slot:default="{ hover }">
                   <v-img :src="pessoa.pathFoto" alt="avatar">
                     <v-expand-transition>
                       <div
-                        v-if="!isNonEdit && hover"
                         @click="onPickFile"
                         class="d-flex justify-center claro column align-center transition-fast-in-fast-out v-card--reveal display-3 white--text"
                         style="height: 100%; width: 100%; cursor: pointer"
+                        v-if="!isNonEdit && hover"
                       >
                         <v-icon>mdi-camera</v-icon>
                       </div>
@@ -23,42 +23,43 @@
                 </v-hover>
               </v-avatar>
             </v-col>
-            <v-col cols="9" class="text-right pr-4" v-if="editable">
-              <v-btn class="ma-2" tile color="claro" small v-if="isNonEdit" @click="editarPerfil">
+            <v-col class="text-right pr-4" cols="9" v-if="editable">
+              <v-btn @click="editarPerfil" class="ma-2" color="claro" small tile v-if="isNonEdit">
                 <v-icon left>mdi-pencil</v-icon>
-                {{btnEdit}}
+                {{ btnEdit }}
               </v-btn>
-              <v-btn class="ma-2" tile color="claro" small v-else @click="salvarPerfil">
+              <v-btn @click="salvarPerfil" class="ma-2" color="claro" small tile v-else>
                 <v-icon left>mdi-content-save-edit</v-icon>
-                {{btnSave}}
+                {{ btnSave }}
               </v-btn>
             </v-col>
             <v-col
-              cols="9"
               class="pr-4 text-right"
+              cols="9"
               v-if="!editable && pessoa.linkedin != undefined"
             >
               <v-btn
-                class="ma-2"
-                tile
                 :href="`https://linkedin.com/in/${pessoa.linkedin}`"
-                target="_blank"
+                class="ma-2"
                 color="primary"
+                target="_blank"
+                tile
               >
-                <v-icon left>mdi-linkedin</v-icon>Linkedin
+                <v-icon left>mdi-linkedin</v-icon>
+                Linkedin
               </v-btn>
             </v-col>
           </v-row>
           <input
-            type="file"
+            @change="onFilePicked"
+            accept="image/png, image/jpeg"
             hidden
             ref="profilePictureInput"
-            accept="image/png, image/jpeg"
-            @change="onFilePicked"
+            type="file"
           />
 
           <v-card-text>
-            <v-tabs color="claro" class="mb-4" v-if="!isNonEdit">
+            <v-tabs class="mb-4" color="claro" v-if="!isNonEdit">
               <v-tab @click="isPublico = true">
                 <v-icon>mdi-earth</v-icon>&nbsp; Perfil
               </v-tab>
@@ -67,28 +68,28 @@
               </v-tab>
             </v-tabs>
             <div v-if="isPublico">
-              <v-form ref="form" v-model="valid" lazy-validation class="formulario">
+              <v-form class="formulario" lazy-validation ref="form" v-model="valid">
                 <v-text-field
-                  label="Nome"
+                  :disabled="isNonEdit"
                   :value="pessoa.nome"
+                  color="claro"
+                  label="Nome"
                   v-model="pessoa.nome"
-                  :disabled="isNonEdit"
-                  color="claro"
                 ></v-text-field>
                 <v-text-field
-                  label="Email"
+                  :disabled="isNonEdit"
                   :value="pessoa.email"
-                  v-model="pessoa.email"
-                  :disabled="isNonEdit"
                   color="claro"
+                  label="Email"
+                  v-model="pessoa.email"
                 ></v-text-field>
                 <v-text-field
-                  label="Usuário Linkedin"
                   :value="pessoa.linkedin"
-                  v-model="pessoa.linkedin"
-                  v-if="!isNonEdit"
-                  prefix="linkedin.com/in/"
                   color="claro"
+                  label="Usuário Linkedin"
+                  prefix="linkedin.com/in/"
+                  v-if="!isNonEdit"
+                  v-model="pessoa.linkedin"
                 >
                   <template v-slot:append>
                     <v-tooltip top>
@@ -98,15 +99,15 @@
                       <h4>Onde encontrar esta informação?</h4>
                       <p>Acesse seu perfil e copie o nome sublinhado abaixo</p>
                       <v-divider class="my-1"></v-divider>
-                      <img src="@/assets/linkedin_help.png" alt="Help" style="width: 100%;" />
+                      <img alt="Help" src="@/assets/linkedin_help.png" style="width: 100%;"/>
                     </v-tooltip>
                   </template>
                 </v-text-field>
-                <v-text-field label="Equipe " :value="pessoa.equipe.nome" disabled color="claro"></v-text-field>
+                <v-text-field :value="pessoa.equipe.nome" color="claro" disabled label="Equipe "></v-text-field>
               </v-form>
             </div>
             <div v-else>
-              <TrocarSenha />
+              <TrocarSenha/>
             </div>
           </v-card-text>
         </v-card>
@@ -115,35 +116,35 @@
           <v-row>
             <DashPerfil
               :id="pessoa.id"
-              :valor="pessoa.saldo"
-              :ultimaTransacao="transacoesDetalhes.ultimoEnvio"
               :totalTransacoes="transacoesDetalhes.total"
+              :ultimaTransacao="transacoesDetalhes.ultimoEnvio"
+              :valor="pessoa.saldo"
               titulo="Saldo Atual"
             />
             <DashPerfil
               :id="pessoa.id"
-              :valor="pessoa.credito"
-              :ultimaTransacao="transacoesDetalhes.ultimoRecebido"
               :totalTransacoes="transacoesDetalhes.recebidos"
+              :ultimaTransacao="transacoesDetalhes.ultimoRecebido"
+              :valor="pessoa.credito"
               titulo="Créditos Totais"
             />
             <DashPerfil
               :id="pessoa.id"
-              :valor="pessoa.debito"
-              :ultimaTransacao="transacoesDetalhes.ultimoEnvio"
               :totalTransacoes="transacoesDetalhes.envios"
+              :ultimaTransacao="transacoesDetalhes.ultimoEnvio"
+              :valor="pessoa.debito"
               titulo="Débitos Totais"
             />
           </v-row>
         </v-container>
       </v-container>
     </v-content>
-    <FooterGlobal />
+    <FooterGlobal/>
   </div>
 </template>
 
 <script>
-import { api, app } from '@/services.js';
+import {app} from '@/services.js';
 import HeaderGlobal from '@/components/HeaderGlobal.vue';
 import FooterGlobal from '@/components/FooterGlobal.vue';
 import DashPerfil from '@/components/DashPerfil.vue';
@@ -191,7 +192,7 @@ export default {
     },
   },
   mounted() {
-    const { id } = this.$route.params;
+    const {id} = this.$route.params;
     if (id) {
       this.puxarPessoa(id);
       this.buscarDetalhes(id);
@@ -237,7 +238,8 @@ export default {
       this.isPublico = true;
       app
         .atualizarCadastro(this.pessoa)
-        .then((response) => {})
+        .then((response) => {
+        })
         .catch((response) => {
           this.pessoa.nome = this.pessoaTmp.nome;
           this.pessoa.email = this.pessoaTmp.email;
@@ -246,7 +248,8 @@ export default {
       if (this.picture != null) {
         const fd = new FormData();
         fd.append('file', this.picture, this.picture.name);
-        app.trocarFoto(fd).then((r) => {});
+        app.trocarFoto(fd).then((r) => {
+        });
       }
     },
     onPickFile(file) {
@@ -270,10 +273,12 @@ export default {
   background: #fff;
   box-shadow: 0 0 10px #000;
 }
+
 .v-sheet--offset {
   top: -60px;
   position: relative;
 }
+
 .content {
   margin-bottom: 65px;
 }

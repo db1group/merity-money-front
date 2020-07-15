@@ -1,23 +1,23 @@
 <template>
   <v-toolbar class="menu-toolbar" v-resize="onResize">
     <div class="logo">
-      <img src="../assets/db1-logo-box.png" alt="DB1 MeritMoney" class="logotipo" />
+      <img alt="DB1 MeritMoney" class="logotipo" src="../assets/db1-logo-box.png"/>
       <h1 display-2>
         <span class="merit">Merit</span>
         <span class="money">Money</span>
       </h1>
     </div>
     <v-spacer></v-spacer>
-    <v-menu left bottom v-if="isMobile">
+    <v-menu bottom left v-if="isMobile">
       <template v-slot:activator="{ on }">
         <v-btn icon v-on="on">
           <v-icon>mdi-menu</v-icon>
         </v-btn>
       </template>
       <v-list>
-        <v-list-item v-for="item in menu" :key="item.nome" :to="item.src">
+        <v-list-item :key="item.nome" :to="item.src" v-for="item in menu">
           <v-list-item-title>
-            <v-icon>mdi-{{item.icon}}</v-icon>
+            <v-icon>mdi-{{ item.icon }}</v-icon>
             &nbsp; {{ item.nome }}
           </v-list-item-title>
         </v-list-item>
@@ -30,12 +30,12 @@
       </v-list>
     </v-menu>
     <v-toolbar-items v-else>
-      <v-btn text v-for="item in menu" :key="item.nome" :to="item.src">
-        <v-icon>mdi-{{item.icon}}</v-icon>
+      <v-btn :key="item.nome" :to="item.src" text v-for="item in menu">
+        <v-icon>mdi-{{ item.icon }}</v-icon>
         &nbsp;
-        {{item.nome}}
+        {{ item.nome }}
       </v-btn>
-      <v-btn text key="logout" @click="logout">
+      <v-btn @click="logout" key="logout" text>
         <v-icon>mdi-logout</v-icon>&nbsp;
         Logout
       </v-btn>
@@ -91,7 +91,7 @@ export default {
     },
     logout() {
       this.$store.dispatch('deslogarUsuario').then(() => {
-        this.$router.push({ name: 'Login' });
+        this.$router.push({name: 'Login'});
       });
     },
   },
@@ -103,12 +103,15 @@ export default {
   display: flex;
   align-items: center;
 }
+
 .logotipo {
   width: 50px;
 }
+
 .merit {
   font-family: "Flexo Black", Arial, Helvetica, sans-serif;
 }
+
 .money {
   font-family: "Flexo", Arial, Helvetica, sans-serif;
 }

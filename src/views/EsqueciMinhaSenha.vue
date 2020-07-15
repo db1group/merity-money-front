@@ -4,7 +4,7 @@
       <v-layout justify-center wrap>
         <v-flex xs6>
           <v-card :loading="loading" class="mx-auto my-12">
-            <v-btn text icon to="Login">
+            <v-btn icon text to="Login">
               <v-icon>mdi-arrow-left</v-icon>
             </v-btn>
             <v-card-title>
@@ -14,27 +14,28 @@
             <v-divider class="mx-4"></v-divider>
 
             <v-card-text>
-              <v-form ref="form" v-model="valid" lazy-validation>
+              <v-form lazy-validation ref="form" v-model="valid">
                 <v-text-field
-                  v-model="user.email"
-                  type="email"
                   :rules="emailRules"
+                  @keyup.enter="validate"
+                  color="#bb4949"
                   label="E-mail"
                   required
-                  color="#bb4949"
-                  @keyup.enter="validate"
+                  type="email"
+                  v-model="user.email"
                 ></v-text-field>
-                <v-alert :value="alert" type="error" transition="scale-transition">{{mensagem}}</v-alert>
+                <v-alert :value="alert" transition="scale-transition" type="error">{{ mensagem }}</v-alert>
                 <v-alert
                   :value="success"
-                  type="success"
                   transition="scale-transition"
-                >{{successMessage}}</v-alert>
+                  type="success"
+                >{{ successMessage }}
+                </v-alert>
               </v-form>
             </v-card-text>
 
             <v-card-actions>
-              <v-btn :loading="loading" color="escuro" class="mr-4" @click="validate">confirmar</v-btn>
+              <v-btn :loading="loading" @click="validate" class="mr-4" color="escuro">confirmar</v-btn>
             </v-card-actions>
           </v-card>
         </v-flex>
@@ -44,7 +45,7 @@
 </template>
 
 <script>
-import { app } from '@/services';
+import {app} from '@/services';
 
 export default {
   name: 'EsqueciMinhaSenha',
@@ -94,6 +95,7 @@ export default {
   align-items: center;
   display: flex;
 }
+
 .logo {
   width: 50%;
 }

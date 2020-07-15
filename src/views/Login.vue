@@ -4,7 +4,7 @@
       <v-layout justify-center wrap>
         <v-flex xs12>
           <v-layout justify-center>
-            <img src="../assets/logo.png" alt="DB1 Global Software" class="logo" />
+            <img alt="DB1 Global Software" class="logo" src="../assets/logo.png"/>
           </v-layout>
         </v-flex>
         <v-flex xs6>
@@ -16,30 +16,30 @@
             <v-divider class="mx-4"></v-divider>
 
             <v-card-text>
-              <v-form ref="form" v-model="valid" lazy-validation>
+              <v-form lazy-validation ref="form" v-model="valid">
                 <v-text-field
-                  v-model="login.email"
-                  type="email"
                   :rules="emailRules"
+                  @keyup.enter="validate"
+                  color="#bb4949"
                   label="E-mail"
                   required
-                  color="#bb4949"
-                  @keyup.enter="validate"
+                  type="email"
+                  v-model="login.email"
                 ></v-text-field>
                 <v-text-field
-                  v-model="login.password"
-                  type="password"
                   :rules="passwordRules"
-                  label="Senha"
-                  color="#bb4949"
-                  required
                   @keyup.enter="validate"
+                  color="#bb4949"
+                  label="Senha"
+                  required
+                  type="password"
+                  v-model="login.password"
                 ></v-text-field>
-                <v-alert prominent :value="alert" type="error">
+                <v-alert :value="alert" prominent type="error">
                   <v-row align="center">
-                    <v-col class="grow">{{mensagem}}</v-col>
+                    <v-col class="grow">{{ mensagem }}</v-col>
                     <v-col class="shrink">
-                      <v-btn small to="EsqueciMinhaSenha" outlined>Recuperar senha</v-btn>
+                      <v-btn outlined small to="EsqueciMinhaSenha">Recuperar senha</v-btn>
                     </v-col>
                   </v-row>
                 </v-alert>
@@ -50,12 +50,13 @@
               <v-btn
                 :disabled="!valid"
                 :loading="loading"
-                color="escuro"
-                class="mr-4"
-                min-width="100px"
                 @click="validate"
-              >Login</v-btn>
-              <v-btn color="claro" class="mr-4" text to="EsqueciMinhaSenha">Esqueci minha senha</v-btn>
+                class="mr-4"
+                color="escuro"
+                min-width="100px"
+              >Login
+              </v-btn>
+              <v-btn class="mr-4" color="claro" text to="EsqueciMinhaSenha">Esqueci minha senha</v-btn>
             </v-card-actions>
           </v-card>
         </v-flex>
@@ -65,7 +66,6 @@
 </template>
 
 <script>
-import { app } from '@/services';
 import EsqueciMinhaSenha from '@/views/EsqueciMinhaSenha';
 
 export default {
@@ -118,6 +118,7 @@ export default {
   align-items: center;
   display: flex;
 }
+
 .logo {
   width: 50%;
 }

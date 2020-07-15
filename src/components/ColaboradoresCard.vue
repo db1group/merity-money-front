@@ -5,7 +5,7 @@
     </div>
     <div class="d-flex flex-row justify-space-between">
       <div class="d-flex flex-column justify-center">
-        <v-btn class="ma-2" text icon @click="previousPage" :disabled="previousDisable">
+        <v-btn :disabled="previousDisable" @click="previousPage" class="ma-2" icon text>
           <v-icon>mdi-chevron-left</v-icon>
         </v-btn>
       </div>
@@ -14,40 +14,40 @@
           <h4 class="information">Esta equipe ainda não possui colaboradores :/</h4>
         </div>
         <v-card
-          class="mb-6"
-          outlined
-          max-width="344px"
-          v-for="colaborador in colaboradores"
           :key="colaborador.id"
+          class="mb-6"
+          max-width="344px"
+          outlined
+          v-for="colaborador in colaboradores"
         >
           <v-list-item three-line>
             <v-list-item-content>
-              <div class="overline mb-4">{{colaborador.email}}</div>
-              <v-list-item-title class="headline mb-1">{{colaborador.nome}}</v-list-item-title>
-              <v-list-item-subtitle>M${{colaborador.saldo}}</v-list-item-subtitle>
+              <div class="overline mb-4">{{ colaborador.email }}</div>
+              <v-list-item-title class="headline mb-1">{{ colaborador.nome }}</v-list-item-title>
+              <v-list-item-subtitle>M${{ colaborador.saldo }}</v-list-item-subtitle>
             </v-list-item-content>
 
-            <v-list-item-avatar tile size="80" color="grey">
-              <img :src="colaborador.pathFoto" :alt="colaborador.nome" />
+            <v-list-item-avatar color="grey" size="80" tile>
+              <img :alt="colaborador.nome" :src="colaborador.pathFoto"/>
             </v-list-item-avatar>
           </v-list-item>
 
           <v-card-actions class="justify-space-between">
             <div>
-              <v-btn text :to="{name: 'Perfil', params: {id: colaborador.id}}">
+              <v-btn :to="{name: 'Perfil', params: {id: colaborador.id}}" text>
                 <v-icon>mdi-account</v-icon>&nbsp; Perfil
               </v-btn>
-              <v-btn text :to="{name: 'Enviar', params: {id: colaborador.id}}">
+              <v-btn :to="{name: 'Enviar', params: {id: colaborador.id}}" text>
                 <v-icon>mdi-send-circle-outline</v-icon>&nbsp; Enviar
               </v-btn>
             </div>
             <div>
               <v-btn
-                text
+                :href="`https://www.linkedin.com/in/${colaborador.linkedin}`"
                 icon
                 small
-                :href="`https://www.linkedin.com/in/${colaborador.linkedin}`"
                 target="_blank"
+                text
                 v-if="colaborador.linkedin != undefined"
               >
                 <v-icon>mdi-linkedin</v-icon>
@@ -57,7 +57,7 @@
         </v-card>
       </div>
       <div class="d-flex flex-column justify-center">
-        <v-btn class="ma-2" text icon @click="nextPage" :disabled="nextDisable">
+        <v-btn :disabled="nextDisable" @click="nextPage" class="ma-2" icon text>
           <v-icon>mdi-chevron-right</v-icon>
         </v-btn>
       </div>
@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import { app } from '@/services.js';
+import {app} from '@/services.js';
 
 export default {
   name: 'ColaboradoresCard',

@@ -4,23 +4,23 @@
       <v-row>
         <v-col cols="12" md="6">
           <v-select
-            v-model="equipe"
             :items="equipes"
+            @change="atualizarTabela"
+            clearable
+            color="claro"
             item-text="nome"
             item-value="id"
-            color="claro"
-            clearable
             label="Equipes"
             prepend-icon="mdi-account-group"
-            @change="atualizarTabela"
+            v-model="equipe"
           ></v-select>
         </v-col>
         <v-col cols="12" md="6">
           <v-text-field
-            prepend-icon="mdi-magnify"
-            v-model="keyword"
             color="claro"
             label="Buscar por nome"
+            prepend-icon="mdi-magnify"
+            v-model="keyword"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -32,18 +32,18 @@
       :page.sync="page"
       :server-items-length="totalElements"
       :sort-desc="true"
-      no-data-text="Infelizmente não encontramos ninguém :/"
       class="elevation-1"
+      no-data-text="Infelizmente não encontramos ninguém :/"
     >
       <template v-slot:item.foto="{ item }">
         <v-avatar size="38px">
-          <img :src="item.pathFoto" :alt="item.nome" pa-2 />
+          <img :alt="item.nome" :src="item.pathFoto" pa-2/>
         </v-avatar>
       </template>
       <template v-slot:item.action="{ item }">
         <v-tooltip top>
           <template v-slot:activator="{ on }">
-            <v-btn :to="{name: 'Perfil', params: {id: item.id}}" small class="mr-1" color="claro">
+            <v-btn :to="{name: 'Perfil', params: {id: item.id}}" class="mr-1" color="claro" small>
               <v-icon small v-on="on">mdi-account</v-icon>
             </v-btn>
           </template>
@@ -51,7 +51,7 @@
         </v-tooltip>
         <v-tooltip top>
           <template v-slot:activator="{ on }">
-            <v-btn :to="{name: 'Enviar', params: {id: item.id}}" small color="claro">
+            <v-btn :to="{name: 'Enviar', params: {id: item.id}}" color="claro" small>
               <v-icon small v-on="on">mdi-send-circle-outline</v-icon>
             </v-btn>
           </template>
@@ -63,22 +63,22 @@
 </template>
 
 <script>
-import { app } from '@/services.js';
+import {app} from '@/services.js';
 
 export default {
   data() {
     return {
       headers: [
-        { text: '', value: 'foto' },
+        {text: '', value: 'foto'},
         {
           text: 'Colaborador',
           align: 'left',
           sortable: false,
           value: 'nome',
         },
-        { text: 'Email', value: 'email' },
-        { text: 'Equipe', value: 'equipe.nome' },
-        { text: 'Ações', value: 'action' },
+        {text: 'Email', value: 'email'},
+        {text: 'Equipe', value: 'equipe.nome'},
+        {text: 'Ações', value: 'action'},
       ],
       pessoas: [],
       pessoa: {},

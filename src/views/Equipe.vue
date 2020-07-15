@@ -1,22 +1,22 @@
 <template>
   <div>
-    <HeaderGlobal />
+    <HeaderGlobal/>
     <v-container>
-      <v-card class="pt-12" :style="getPathFoto">
+      <v-card :style="getPathFoto" class="pt-12">
         <PageTitle
-          icone="mdi-rocket"
           :titulo="'Equipe ' + equipe.nome"
           class="px-3 mt-12 pt-12 pageTitle"
+          icone="mdi-rocket"
         />
       </v-card>
-      <ColaboradoresCard :equipeId="getEquipeId" />
+      <ColaboradoresCard :equipeId="getEquipeId"/>
     </v-container>
-    <FooterGlobal />
+    <FooterGlobal/>
   </div>
 </template>
 
 <script>
-import { app } from '@/services.js';
+import {app} from '@/services.js';
 import HeaderGlobal from '@/components/HeaderGlobal';
 import FooterGlobal from '@/components/FooterGlobal';
 import PageTitle from '@/components/PageTitle';
@@ -36,7 +36,7 @@ export default {
     };
   },
   mounted() {
-    const { id } = this.$route.params;
+    const {id} = this.$route.params;
     app.findEquipeById(id).then((r) => {
       this.equipe = r.data;
     });
