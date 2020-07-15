@@ -1,50 +1,52 @@
 <template>
   <div>
-    <PageTitle icone="mdi-credit-card-outline" titulo="Enviar MeritMoney" />
+    <PageTitle icone="mdi-credit-card-outline" titulo="Enviar MeritMoney"/>
     <v-row>
       <v-col cols="12">
         <v-alert
-          v-model="transacaoOk"
-          color="green"
           border="left"
-          elevation="2"
+          color="green"
           colored-border
+          elevation="2"
           icon="mdi-check-circle"
-        >Transação realizada com sucesso!</v-alert>
+          v-model="transacaoOk"
+        >Transação realizada com sucesso!
+        </v-alert>
 
         <v-alert
-          v-model="transacaoFail"
-          color="red"
           border="left"
-          elevation="2"
+          color="red"
           colored-border
+          elevation="2"
           icon="mdi-alert-circle"
-        >{{mensagemDeErro}}</v-alert>
+          v-model="transacaoFail"
+        >{{ mensagemDeErro }}
+        </v-alert>
       </v-col>
     </v-row>
     <v-row>
       <v-col cols="md-6 col-12">
         <v-autocomplete
-          v-model="transacao.destinatario"
           :items="pessoas"
-          label="Para:"
-          prepend-icon="mdi-account"
+          :rules="pessoaRules"
+          :search-input.sync="procurarPessoa"
           color="#bb4949"
+          dense
           item-text="nome"
           item-value="id"
-          return-object
+          label="Para:"
           no-data-text="Digite um nome válido para buscar."
-          :search-input.sync="procurarPessoa"
-          dense
-          :rules="pessoaRules"
+          prepend-icon="mdi-account"
+          return-object
+          v-model="transacao.destinatario"
         >
           <template v-slot:selection="data">
             <v-chip
-              v-bind="data.attrs"
               :input-value="data.select"
-              close
               @click="data.select"
               @click:close="remove"
+              close
+              v-bind="data.attrs"
             >
               <v-avatar left>
                 <v-img :src="data.item.pathFoto"></v-img>
@@ -58,7 +60,7 @@
             </template>
             <template v-else>
               <v-list-item-avatar>
-                <img :src="data.item.pathFoto" />
+                <img :src="data.item.pathFoto"/>
               </v-list-item-avatar>
               <v-list-item-content>
                 <v-list-item-title v-html="data.item.nome"></v-list-item-title>
@@ -70,28 +72,28 @@
       </v-col>
       <v-col cols="col-12 md-6">
         <v-text-field
+          :rules="valueRules"
+          color="#bb4949"
           label="Valor"
           prepend-icon="mdi-cash"
-          color="#bb4949"
           v-model.lazy="value"
           v-money="money"
-          :rules="valueRules"
         ></v-text-field>
       </v-col>
     </v-row>
     <v-row>
       <v-col cols="12">
         <v-textarea
-          name="mensagem"
-          color="#bb4949"
-          v-model="transacao.mensagem"
-          filled
-          clearable
           auto-grow
-          label="Deixe uma mensagem"
-          hint
+          clearable
+          color="#bb4949"
           counter="80"
+          filled
+          hint
+          label="Deixe uma mensagem"
           max="80"
+          name="mensagem"
+          v-model="transacao.mensagem"
         ></v-textarea>
       </v-col>
     </v-row>
@@ -99,17 +101,18 @@
       <v-row>
         <v-col cols="12">
           <div class="text-end">
-            <v-dialog v-model="confirmacao" persistent max-width="290">
+            <v-dialog max-width="290" persistent v-model="confirmacao">
               <template v-slot:activator="{ on }">
-                <v-btn color="claro" v-on="on" :disabled="validate" :loading="loading">
-                  <v-icon left>mdi-send</v-icon>Enviar
+                <v-btn :disabled="validate" :loading="loading" color="claro" v-on="on">
+                  <v-icon left>mdi-send</v-icon>
+                  Enviar
                 </v-btn>
               </template>
               <Modal
-                titulo="Confirmar transação"
                 :mensagem="mensagem2"
                 @cancelar="cancelar"
                 @confirmar="efetuarTransacao"
+                titulo="Confirmar transação"
               />
             </v-dialog>
           </div>
@@ -120,8 +123,7 @@
 </template>
 
 <script>
-import { api, app } from '@/services.js';
-import { VMoney } from 'v-money';
+import {app} from '@/services.js';
 import Modal from '@/components/Modal';
 import PageTitle from '@/components/PageTitle';
 
@@ -159,7 +161,7 @@ export default {
         v => this.toFloat() > 0 || 'Coloque um valor válido',
         v => (
           this.toFloat() <= this.transacao.remetente.saldo
-            || 'Saldo insuficiente'
+          || 'Saldo insuficiente'
         ),
       ],
     };
@@ -169,7 +171,7 @@ export default {
       .dispatch('getUsuario')
       .then((r) => {
         this.transacao.remetente = this.$store.state.usuario;
-        const { id } = this.$route.params;
+        const {id} = this.$route.params;
         if (id && id !== this.transacao.remetente.id) {
           this.findPessoa(id);
         } else if (id) {
@@ -184,7 +186,7 @@ export default {
   },
   methods: {
     findPessoa(id) {
-      app.findPessoaById(id).then(({ data }) => {
+      app.findPessoaById(id).then(({data}) => {
         this.pessoas.push(data);
         this.transacao.destinatario = data;
       });

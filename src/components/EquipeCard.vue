@@ -1,8 +1,8 @@
 <template>
   <v-card class="mx-auto" max-width="400">
-    <v-img class="white--text align-end" height="200px" :src="equipe.pathFoto">
+    <v-img :src="equipe.pathFoto" class="white--text align-end" height="200px">
       <v-card-title class="title justify-space-between">
-        <div>{{equipe.nome}}</div>
+        <div>{{ equipe.nome }}</div>
         <v-chip color="claro">
           <v-icon class="mr-2">mdi-account-group</v-icon>
           {{ " " + equipe.numeroDeColaboradores }}
@@ -15,7 +15,7 @@
     </v-card-text>
 
     <v-card-actions class="justify-end">
-      <v-btn color="claro" text :to="{name: 'Equipe', params: {id: equipe.id}}">mais informações</v-btn>
+      <v-btn :to="{name: 'Equipe', params: {id: equipe.id}}" color="claro" text>mais informações</v-btn>
     </v-card-actions>
   </v-card>
 </template>

@@ -1,7 +1,7 @@
 <template>
   <div>
-    <PageTitle icone="mdi-account" titulo="Colaboradores" />
-    <Table />
+    <PageTitle icone="mdi-account" titulo="Colaboradores"/>
+    <Table/>
   </div>
 </template>
 

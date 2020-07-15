@@ -12,7 +12,7 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const { token } = window.localStorage;
+    const {token} = window.localStorage;
     if (token) {
       config.headers.Authorization = token;
     }
@@ -26,7 +26,7 @@ axiosInstance.interceptors.response.use(
   (error) => {
     const {
       config,
-      response: { status },
+      response: {status},
     } = error;
     const originalRequest = config;
 
@@ -38,7 +38,7 @@ axiosInstance.interceptors.response.use(
 
 function control() {
   store.dispatch('deslogarUsuario').then(() => {
-    router.push({ name: 'Login' });
+    router.push({name: 'Login'});
   });
 }
 
@@ -51,7 +51,7 @@ export const api = {
   },
   upload(endpoint, body) {
     return axiosInstance.post(endpoint, body, {
-      headers: { 'Content-Type': 'multipart/form-data' },
+      headers: {'Content-Type': 'multipart/form-data'},
     });
   },
   put(endpoint, body) {

@@ -6,7 +6,7 @@ import App from './App.vue';
 import router from './router';
 import vuetify from './plugins/vuetify';
 
-Vue.use(money, { precision: 4 });
+Vue.use(money, {precision: 4});
 Vue.config.productionTip = false;
 
 Vue.component('Loading', Loading);

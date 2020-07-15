@@ -11,33 +11,33 @@
             <v-divider class="mx-4"></v-divider>
 
             <v-card-text>
-              <v-form ref="form" v-model="valid" lazy-validation>
+              <v-form lazy-validation ref="form" v-model="valid">
                 <v-text-field
-                  v-model="novaSenha.email"
-                  type="email"
+                  color="#bb4949"
                   disabled
                   label="E-mail"
-                  color="#bb4949"
+                  type="email"
+                  v-model="novaSenha.email"
                 ></v-text-field>
                 <v-text-field
-                  v-model="novaSenha.senha"
-                  type="password"
                   :rules="passwordRules"
-                  label="Senha"
-                  color="#bb4949"
-                  required
                   @keyup.enter="validate"
+                  color="#bb4949"
+                  label="Senha"
+                  required
+                  type="password"
+                  v-model="novaSenha.senha"
                 ></v-text-field>
                 <v-text-field
-                  v-model="novaSenha.confirmaSenha"
-                  type="password"
                   :rules="confirmPasswordRules"
-                  label="Confirmar Senha"
-                  color="#bb4949"
-                  required
                   @keyup.enter="validate"
+                  color="#bb4949"
+                  label="Confirmar Senha"
+                  required
+                  type="password"
+                  v-model="novaSenha.confirmaSenha"
                 ></v-text-field>
-                <v-alert :value="alert" type="error" transition="scale-transition">{{mensagem}}</v-alert>
+                <v-alert :value="alert" transition="scale-transition" type="error">{{ mensagem }}</v-alert>
               </v-form>
             </v-card-text>
 
@@ -45,10 +45,11 @@
               <v-btn
                 :disabled="confirmacao"
                 :loading="loading"
-                color="escuro"
-                class="mr-4"
                 @click="validate"
-              >confirmar</v-btn>
+                class="mr-4"
+                color="escuro"
+              >confirmar
+              </v-btn>
             </v-card-actions>
           </v-card>
         </v-flex>
@@ -58,7 +59,7 @@
 </template>
 
 <script>
-import { app } from '@/services';
+import {app} from '@/services';
 
 export default {
   name: 'NovaSenha',
@@ -123,6 +124,7 @@ export default {
   align-items: center;
   display: flex;
 }
+
 .logo {
   width: 50%;
 }

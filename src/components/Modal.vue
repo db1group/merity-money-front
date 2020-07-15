@@ -4,8 +4,8 @@
     <v-card-text v-text="mensagem"></v-card-text>
     <v-card-actions>
       <div class="flex-grow-1"></div>
-      <v-btn color="red darken-1" text @click="cancelar">Cancelar</v-btn>
-      <v-btn color="green darken-1" text @click="confirmar">Confirmar</v-btn>
+      <v-btn @click="cancelar" color="red darken-1" text>Cancelar</v-btn>
+      <v-btn @click="confirmar" color="green darken-1" text>Confirmar</v-btn>
     </v-card-actions>
   </v-card>
 </template>

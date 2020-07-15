@@ -5,37 +5,37 @@
       <h3 v-else>Recebidos</h3>
     </v-card-title>
     <v-data-table
+      :custom-sort="customSort"
       :headers="headers"
       :items="transacoes"
-      :custom-sort="customSort"
+      :items-per-page.sync="size"
       :loading="loading"
       :page.sync="page"
-      :items-per-page.sync="size"
       :server-items-length="totalElements"
-      no-data-text="Não encontramos transações :/"
       loading-text="Buscando transações"
+      no-data-text="Não encontramos transações :/"
     >
       <template v-slot:body="{ items }">
         <tbody>
-          <tr v-for="item in items" :key="item.dateTime">
-            <td v-if="isEnvios">
-              <v-avatar size="38px">
-                <img :src="item.destinatario.pathFoto" :alt="item.destinatario.nome" pa-2 />
-              </v-avatar>
-              &nbsp; {{ item.destinatario.nome }}
-            </td>
-            <td v-else>
-              <v-avatar size="38px">
-                <img :src="item.remetente.pathFoto" :alt="item.remetente.nome" pa-2 />
-              </v-avatar>
-              &nbsp; {{ item.remetente.nome }}
-            </td>
-            <td>
-              <v-chip color="escuro">{{ item.valor | meritMoney}}</v-chip>
-            </td>
-            <td>{{ item.mensagem }}</td>
-            <td>{{ item.dateTime | timestampConvert}}</td>
-          </tr>
+        <tr :key="item.dateTime" v-for="item in items">
+          <td v-if="isEnvios">
+            <v-avatar size="38px">
+              <img :alt="item.destinatario.nome" :src="item.destinatario.pathFoto" pa-2/>
+            </v-avatar>
+            &nbsp; {{ item.destinatario.nome }}
+          </td>
+          <td v-else>
+            <v-avatar size="38px">
+              <img :alt="item.remetente.nome" :src="item.remetente.pathFoto" pa-2/>
+            </v-avatar>
+            &nbsp; {{ item.remetente.nome }}
+          </td>
+          <td>
+            <v-chip color="escuro">{{ item.valor | meritMoney }}</v-chip>
+          </td>
+          <td>{{ item.mensagem }}</td>
+          <td>{{ item.dateTime | timestampConvert }}</td>
+        </tr>
         </tbody>
       </template>
     </v-data-table>
@@ -44,7 +44,7 @@
 
 <script>
 import moment from 'moment';
-import { app } from '@/services.js';
+import {app} from '@/services.js';
 
 export default {
   name: 'TabelaTransacoes',
@@ -61,9 +61,9 @@ export default {
           align: 'left',
           value: 'destinatario.nome',
         },
-        { text: 'Valor', value: 'valor' },
-        { text: 'Mensagem', value: 'mensagem' },
-        { text: 'Data', value: 'dateTime' },
+        {text: 'Valor', value: 'valor'},
+        {text: 'Mensagem', value: 'mensagem'},
+        {text: 'Data', value: 'dateTime'},
       ],
       idUsuario: 0,
       isDesc: true,
