@@ -1,8 +1,8 @@
 <template>
   <div>
-    <PageTitle icone="mdi-chart-bar" titulo="Dashboard" />
-    <TabelaTransacoes :isEnvios="true" />
-    <TabelaTransacoes :isEnvios="false" />
+    <PageTitle icone="mdi-chart-bar" titulo="Dashboard"/>
+    <TabelaTransacoes :isEnvios="true"/>
+    <TabelaTransacoes :isEnvios="false"/>
   </div>
 </template>
 

@@ -4,7 +4,7 @@
       <v-layout justify-center wrap>
         <v-flex xs12>
           <v-layout justify-center>
-            <img src="../assets/logo.png" alt="DB1 Global Software" class="logo" />
+            <img src="../assets/logo.png" alt="DB1 Global Software" class="logo"/>
           </v-layout>
         </v-flex>
         <v-flex xs6>
@@ -37,7 +37,7 @@
                 ></v-text-field>
                 <v-alert prominent :value="alert" type="error">
                   <v-row align="center">
-                    <v-col class="grow">{{mensagem}}</v-col>
+                    <v-col class="grow">{{ mensagem }}</v-col>
                     <v-col class="shrink">
                       <v-btn small to="EsqueciMinhaSenha" outlined>Recuperar senha</v-btn>
                     </v-col>
@@ -54,7 +54,8 @@
                 class="mr-4"
                 min-width="100px"
                 @click="validate"
-              >Login</v-btn>
+              >Login
+              </v-btn>
               <v-btn color="claro" class="mr-4" text to="EsqueciMinhaSenha">Esqueci minha senha</v-btn>
             </v-card-actions>
           </v-card>
@@ -65,7 +66,7 @@
 </template>
 
 <script>
-import { app } from '@/services';
+import {app} from '@/services';
 import EsqueciMinhaSenha from '@/views/EsqueciMinhaSenha';
 
 export default {
@@ -118,6 +119,7 @@ export default {
   align-items: center;
   display: flex;
 }
+
 .logo {
   width: 50%;
 }
